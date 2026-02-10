@@ -7,10 +7,6 @@ services:
     startCommand: python src/server.py
     autoDeploy: false
     envVars:
-      - key: PORT
-        generateValue: true
-      - key: HOST
-        value: 0.0.0.0
       - key: GARMINTOKENS_BASE64
         sync: false
       - key: GARMIN_EMAIL

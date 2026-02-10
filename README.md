@@ -1,6 +1,8 @@
 # Garmin MCP Server for Poke
 
-A Poke-compatible MCP server exposing 95+ Garmin Connect tools over HTTP. Deployable to Render.
+A [Poke](https://poke.com)-compatible MCP server exposing 90+ [Garmin Connect](https://connect.garmin.com) tools over HTTP via [FastMCP](https://github.com/jlowin/fastmcp). Deployable to Render.
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/theol0403/garmin-mcp-poke)
 
 ## Setup
 
@@ -17,28 +19,40 @@ This will prompt for your Garmin email, password, and MFA code, then output a ba
 
 ### 2. Deploy to Render
 
-1. Push this repo to GitHub
-2. Create a new Web Service on [Render](https://render.com) pointing to this repo
-3. Set environment variables:
-   - `GARMINTOKENS_BASE64` = the token string from step 1
-4. Deploy
+#### Option 1: One-Click Deploy
+Click the "Deploy to Render" button above, then set `GARMINTOKENS_BASE64` to the token string from step 1.
+
+#### Option 2: Manual Deployment
+1. Fork this repository
+2. Connect your GitHub account to Render
+3. Create a new Web Service on Render
+4. Connect your forked repository
+5. Render will automatically detect the `render.yaml` configuration
+6. Set `GARMINTOKENS_BASE64` in environment variables
+
+Your server will be available at `https://your-service-name.onrender.com/mcp`
 
 ### 3. Connect Poke
 
-Add the Render URL to Poke as an MCP server endpoint:
+Add your Render URL to Poke at [poke.com/settings/connections](https://poke.com/settings/connections):
 ```
-https://your-service.onrender.com/mcp
+https://your-service-name.onrender.com/mcp
 ```
 
 ## Local Development
 
 ```bash
 pip install -r requirements.txt
-export GARMINTOKENS_BASE64="your-token-string"
+cp .env.example .env
+# Edit .env and set GARMINTOKENS_BASE64
 python src/server.py
 ```
 
-The server runs at `http://localhost:8000/mcp`.
+Test with MCP Inspector:
+```bash
+npx @modelcontextprotocol/inspector
+```
+Open http://localhost:3000 and connect to `http://localhost:8000/mcp` using "Streamable HTTP" transport.
 
 ## Token Refresh
 
@@ -60,3 +74,9 @@ Tokens last approximately 6 months. When they expire, re-run `generate_tokens.py
 | Data Management | 3 | Body composition, blood pressure, hydration |
 | Women's Health | 3 | Pregnancy, menstrual cycle tracking |
 | Workout Templates | 5 | Resources with workout JSON templates |
+
+## Attribution
+
+Built on top of:
+- [Taxuspt/garmin_mcp](https://github.com/Taxuspt/garmin_mcp) -- Garmin Connect MCP tool modules and authentication flow
+- [InteractionCo/mcp-server-template](https://github.com/InteractionCo/mcp-server-template) -- FastMCP HTTP server template for Render/Poke

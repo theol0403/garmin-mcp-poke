@@ -2,6 +2,8 @@
 
 A [Poke](https://poke.com)-compatible MCP server exposing 90+ [Garmin Connect](https://connect.garmin.com) tools over HTTP via [FastMCP](https://github.com/jlowin/fastmcp). Deployable to Render.
 
+Built on top of [Taxuspt/garmin_mcp](https://github.com/Taxuspt/garmin_mcp) and [InteractionCo/mcp-server-template](https://github.com/InteractionCo/mcp-server-template).
+
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/theol0403/garmin-mcp-poke)
 
 ## Setup
